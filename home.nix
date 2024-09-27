@@ -6,6 +6,7 @@
   home.username = "bgunev";
   home.homeDirectory = "/home/bgunev";
 
+  programs.git.enable = true;
   programs.git.userName = "Blago Gunev";
   programs.git.userEmail = "bgunev@gmail.com";
 
