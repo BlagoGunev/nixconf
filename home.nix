@@ -10,6 +10,8 @@
   programs.git.userName = "Blago Gunev";
   programs.git.userEmail = "bgunev@gmail.com";
 
+  programs.gh.enable = true;
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -41,7 +43,7 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
     discord
-    gh
+    neofetch
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
