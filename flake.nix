@@ -27,5 +27,14 @@
         inputs.home-manager.nixosModules.default
       ];
     };
+    
+    nixosConfigurations.msi = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+         
+      modules = [
+        ./configuration-msi.nix
+        inputs.home-manager.nixosModules.default
+      ];
+    };
   };
 }
