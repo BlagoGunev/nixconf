@@ -23,7 +23,7 @@
       specialArgs = {inherit inputs;};
          
       modules = [
-        ./configuration.nix
+        ./hosts/vm/configuration.nix
         inputs.home-manager.nixosModules.default
       ];
     };
@@ -32,7 +32,7 @@
       specialArgs = {inherit inputs;};
          
       modules = [
-        ./configuration-msi.nix
+        ./hosts/msi/configuration.nix
         inputs.home-manager.nixosModules.default
       ];
     };
