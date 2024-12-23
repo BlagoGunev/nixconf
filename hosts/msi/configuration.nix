@@ -11,6 +11,7 @@
       ./nvidia.nix
       ./../../modules/gaming.nix
       ./../../de/gnome.nix
+      ./wol.nix
     ];
 
   # Bootloader.
@@ -157,6 +158,7 @@
     git
     killall
     lshw
+    ethtool
   ];
 
   gaming.heroic = true;
