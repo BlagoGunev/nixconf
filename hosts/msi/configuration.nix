@@ -126,6 +126,21 @@
     autoStart = true;
     capSysAdmin = true;
     openFirewall = true;
+    settings.port = 47089;
+    applications = {
+      env = {
+        # PATH = "$(PATH):$(HOME)/.local/bin";
+        PATH = "$(PATH)";
+      };
+      apps = [
+        {
+           name = "Steam";
+           output = "steam.txt";
+           detached = ["${pkgs.util-linux}/bin/setsid ${pkgs.steam}/bin/steam steam://open/bigpicture"];
+           image-path = "steam.png";
+        }
+      ];
+    };
   };
 
   services.flatpak.enable = true;
@@ -184,15 +199,18 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings.PasswordAuthentication = false;
+  };
+  users.users.bgunev.openssh.authorizedKeys.keys = [
+    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKZOt3w/i8jwUB/930l1MX6tsWYwd9qsam2hXTj+06h9''
+  ];
+  # services.fail2ban.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 47084 47089 47090 47110 ];
-  networking.firewall.allowedUDPPorts = [ 1900 ];
-  networking.firewall.allowedUDPPortRanges = [ 
-    { from = 47098; to = 47100; }
-    { from = 8000; to = 8010; }
-  ];
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
