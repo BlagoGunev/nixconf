@@ -136,7 +136,7 @@
         {
            name = "Steam";
            output = "steam.txt";
-           detached = ["${pkgs.util-linux}/bin/setsid ${pkgs.steam}/bin/steam steam://open/bigpicture"];
+           detached = ["${pkgs.util-linux}/bin/setsid ${pkgs.steam}/bin/steam steam://open/bigpicture --cap-add $CAP"];
            image-path = "steam.png";
         }
       ];
@@ -205,8 +205,30 @@
   };
   users.users.bgunev.openssh.authorizedKeys.keys = [
     ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKZOt3w/i8jwUB/930l1MX6tsWYwd9qsam2hXTj+06h9''
+    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHzvML6GZoc31mJ5pnSNX8ZBIuYSdIj2x+ZsG3kszak6''
   ];
   # services.fail2ban.enable = true;
+
+  security.sudo = {
+    enable = true;
+    extraRules = [{
+      users = [ "bgunev" ];
+      commands = [
+        {
+          command = "/run/current-system/sw/bin/systemctl suspend";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/run/current-system/sw/bin/reboot";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/run/current-system/sw/bin/shutdown";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }];
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
