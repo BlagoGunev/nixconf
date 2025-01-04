@@ -129,14 +129,13 @@
     settings.port = 47089;
     applications = {
       env = {
-        # PATH = "$(PATH):$(HOME)/.local/bin";
-        PATH = "$(PATH)";
+        PATH = "/run/current-system/sw/bin";
       };
       apps = [
         {
            name = "Steam";
            output = "steam.txt";
-           detached = ["${pkgs.util-linux}/bin/setsid ${pkgs.steam}/bin/steam steam://open/bigpicture --cap-add $CAP"];
+           detached = ["setsid steam steam://open/bigpicture --cap-add CAP_SYS_NICE"];
            image-path = "steam.png";
         }
       ];
@@ -154,7 +153,6 @@
     description = "Blago Gunev";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-    #  thunderbird
       vscode-fhs
     ];
   };
@@ -178,8 +176,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
     git
     killall
     lshw
