@@ -8,10 +8,11 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./nvidia.nix
       ./../../modules/gaming.nix
       ./../../de/gnome.nix
-      ./wol.nix
+      ./included/nvidia.nix
+      ./included/wol.nix
+      ./included/sunshine.nix
     ];
 
   # Bootloader.
@@ -135,8 +136,13 @@
         {
            name = "Steam";
            output = "steam.txt";
-           detached = ["setsid steam steam://open/bigpicture --cap-add CAP_SYS_NICE"];
+           detached = ["steam-run-url steam://open/bigpicture"];
            image-path = "steam.png";
+        }
+        {
+           name = "Desktop";
+           output = "desktop.txt";
+           image-path = "desktop.png";
         }
       ];
     };
