@@ -19,11 +19,11 @@
     pkgs = nixpkgs.legacyPackages.${system};
   in 
   {
-    nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.yoga = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
          
       modules = [
-        ./hosts/vm/configuration.nix
+        ./hosts/yoga/configuration.nix
         inputs.home-manager.nixosModules.default
       ];
     };

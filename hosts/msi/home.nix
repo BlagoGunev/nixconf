@@ -8,7 +8,7 @@
 
   programs.git.enable = true;
   programs.git.userName = "Blago Gunev";
-  programs.git.userEmail = "bgunev@gmail.com";
+  programs.git.userEmail = "38541383+BlagoGunev@users.noreply.github.com";
 
   programs.gh.enable = true;
 
