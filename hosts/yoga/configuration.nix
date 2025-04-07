@@ -4,6 +4,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/dev.nix
       inputs.home-manager.nixosModules.home-manager
     ];
 
@@ -33,6 +34,7 @@
       "rd.systemd.show_status=false"
       "rd.udev.log_level=3"
       "udev.log_priority=3"
+      "amd_pstate=active"
     ];
 
     loader.systemd-boot.enable = true;
@@ -40,13 +42,21 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
+  powerManagement.enable = true;
+  # powerManagement.cpuFreqGovernor = "powersave";
+
   networking.hostName = "yoga-s7n";
 
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Enable bluetooth
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
+  time.hardwareClockInLocalTime = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -78,7 +88,7 @@
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us,bg";
-    variant = "phonetic";
+    variant = ",phonetic";
     options = "grp:win_space_toggle";
   };
 
@@ -102,11 +112,14 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  programs.zsh.enable = true;
+
   # Define a user account.
   users.users.bgunev = {
     isNormalUser = true;
     description = "Blago Gunev";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
   };
 
   home-manager = {
