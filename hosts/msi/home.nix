@@ -6,9 +6,13 @@
   home.username = "bgunev";
   home.homeDirectory = "/home/bgunev";
 
-  programs.git.enable = true;
-  programs.git.userName = "Blago Gunev";
-  programs.git.userEmail = "38541383+BlagoGunev@users.noreply.github.com";
+  programs.git = {
+    enable = true;
+    settings = {
+      user.name = "Blago Gunev";
+      user.email = "38541383+BlagoGunev@users.noreply.github.com";
+    };
+  };
 
   programs.gh.enable = true;
 
@@ -42,7 +46,26 @@
     neofetch
     fastfetch
     resources
+    gnomeExtensions.battery-health-charging
+    gnomeExtensions.appindicator
   ];
+
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/shell" = {
+        disabled-extensions = ["Battery-Health-Charging@maniacx.github.com"];
+        enabled-extensions = ["appindicatorsupport@rgcjonas.gmail.com"];
+      };
+      "org/gnome/shell/extensions/appindicator" = {
+        icon-brightness = 0.0;
+        icon-contrast = 0.0;
+        icon-opacity = 240;
+        icon-saturation = 0.0;
+        icon-size = 0;
+      };
+    };
+  };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
