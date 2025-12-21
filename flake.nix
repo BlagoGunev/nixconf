@@ -18,16 +18,7 @@
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
   in 
-  {
-    nixosConfigurations.yoga = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
-         
-      modules = [
-        ./hosts/yoga/configuration.nix
-        inputs.home-manager.nixosModules.default
-      ];
-    };
-    
+  {    
     nixosConfigurations.msi = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
          

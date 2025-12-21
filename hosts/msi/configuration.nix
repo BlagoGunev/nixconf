@@ -8,12 +8,12 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./../../modules/gaming.nix
+      ./../../modules/gaming
       ./../../modules/ollama
-      ./../../de/gnome.nix
+      ./../../modules/steam-run.nix
+      ./../../de/gnome
       ./included/nvidia.nix
       ./included/wol.nix
-      ./included/sunshine.nix
     ];
 
   # Bootloader.
@@ -48,16 +48,6 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     kernelPackages = pkgs.linuxPackages_latest;
-
-    kernelPatches = [
-      {
-        name = "atheros e2500 wol";
-        patch = builtins.fetchurl {
-          url = "https://raw.githubusercontent.com/jhwshin/alx-wol-dkms/refs/heads/main/alx-wol.patch";
-          sha256 = "1rxjg80ab1v59bfa98rn9qz1n096cj9vscmn63hzdsw1ihh0vwgl";
-        };
-      }
-    ];
   };
 
 
@@ -188,8 +178,6 @@
     lshw
     ethtool
   ];
-
-  gaming.heroic = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
