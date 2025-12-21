@@ -11,6 +11,7 @@
       # totem # video player
       gnome-tour
       gnome-maps
+      gnome-software
       gedit # text editor
       yelp
       gnome-contacts
