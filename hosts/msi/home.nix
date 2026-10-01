@@ -43,7 +43,6 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
     discord
-    neofetch
     fastfetch
     resources
     gnomeExtensions.battery-health-charging

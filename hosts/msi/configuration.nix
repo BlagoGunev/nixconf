@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./../../modules/gaming
-      ./../../modules/ollama
+      # ./../../modules/ollama
       ./../../modules/steam-run.nix
       ./../../de/gnome
       ./included/nvidia.nix
@@ -119,6 +119,10 @@
     capSysAdmin = true;
     openFirewall = true;
     settings.port = 47089;
+    settings = {
+      min_log_level = "info";
+      # adapter_name = "/dev/dri/renderD129";
+    };
     applications = {
       env = {
         PATH = "/run/current-system/sw/bin";
@@ -137,7 +141,12 @@
         }
       ];
     };
+    package = pkgs.sunshine.override {
+      cudaSupport = true;
+      cudaPackages = pkgs.cudaPackages;
+    };
   };
+  hardware.uinput.enable = true;
 
   services.flatpak.enable = true;
 
@@ -148,7 +157,7 @@
   users.users.bgunev = {
     isNormalUser = true;
     description = "Blago Gunev";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "uinput" ];
     packages = with pkgs; [
       vscode-fhs
     ];
@@ -178,6 +187,9 @@
     lshw
     ethtool
   ];
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
